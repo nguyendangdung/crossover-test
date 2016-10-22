@@ -165,9 +165,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\GetAllResponse.cs" />
-    <Compile Include="Models\GetByIdResponse.cs" />
-    <Compile Include="Models\GetByIdsResponse.cs" />
+    <Compile Include="Models\GetAllResponseMessage.cs" />
+    <Compile Include="Models\GetByIdResponseMessage.cs" />
+    <Compile Include="Models\GetByIdsResponseMessage.cs" />
     <Compile Include="Models\StockDetails.cs" />
     <Compile Include="Models\StockListitem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

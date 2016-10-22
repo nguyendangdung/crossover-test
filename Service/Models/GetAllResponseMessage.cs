@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Service.Models
 {
-    public class GetAllResponse
+    public class GetAllResponseMessage
     {
         public List<StockDetails> Stocks { get; set; }
         public int Page { get; set; }

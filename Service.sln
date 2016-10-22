@@ -8,6 +8,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Tests", "Service.Tests\Service.Tests.csproj", "{B35D6CC4-9509-4644-84BE-5F43CFBF61EE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{25719F72-320C-46F9-B69B-906AAE913808}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3A9ADF0F-17FE-47B3-A27D-99F46D12098D} = {3A9ADF0F-17FE-47B3-A27D-99F46D12098D}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.Tests", "Client.Tests\Client.Tests.csproj", "{5679DD0E-51C6-4637-83B7-AD8BD18C852A}"
 EndProject

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Service.Models
 {
-    public class GetByIdResponse
+    public class GetByIdResponseMessage
     {
         public StockDetails Stock { get; set; }
     }
