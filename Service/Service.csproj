@@ -165,11 +165,18 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\GetAllResponse.cs" />
+    <Compile Include="Models\GetByIdResponse.cs" />
+    <Compile Include="Models\GetByIdsResponse.cs" />
     <Compile Include="Models\StockDetails.cs" />
     <Compile Include="Models\StockListitem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IStockRepository.cs" />
     <Compile Include="Repositories\StockRepository.cs" />
+    <Compile Include="StockExchangeService.asmx.cs">
+      <DependentUpon>StockExchangeService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -193,6 +200,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="StockExchangeService.asmx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
