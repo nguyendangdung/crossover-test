@@ -9,7 +9,7 @@ namespace Service.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(Service.Entities.Context context)

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Service.Models
 {
-    public class StockListitem
+    public class StockDetails
     {
         [Display(Name = "Code")]
         public int Id { get; set; }
