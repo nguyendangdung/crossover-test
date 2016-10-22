@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -30,6 +31,10 @@ namespace Client.Controllers
 
         public ActionResult Refresh(int page, int size)
         {
+            // Demo only
+            Thread.Sleep(2000);
+
+
             var stocks = AsyncHelper.RunSync(() => _stockService.GetAllAsync(page, size));
             var listItems = stocks.Stocks.Select(s => new StockListItem() { Id = s.Id, Price = s.Price });
             var vm = new StaticPagedList<StockListItem>(listItems, page, size, stocks.Count);

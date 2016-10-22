@@ -10,9 +10,9 @@
     var url = Url.Action("Refresh", new {page, size});
 }
 
-<h2>Stocks</h2>
+<h2>Stocks <small>Click the button to refresh or auto refresh every 10 seconds</small></h2>
 <p>
-    <button id="refresh-btn" class="btn btn-default">Refresh</button>
+    <button id="refresh-btn" class="btn btn-default"><i class="fa fa-refresh fa-fw"></i> <span>Refresh</span></button>
 </p>
 <div id="talbe-wraper">
     <table class="table">
@@ -51,9 +51,19 @@
     <script>
         $(function () {
             function getData() {
-                $("#talbe-wraper").load("@Html.Raw(url)");
+                $("#refresh-btn i").toggleClass("fa-spin");
+                $("#refresh-btn span").text(" Refreshing ...");
+                $("#talbe-wraper").load("@Html.Raw(url)",
+                    function() {
+                        $("#refresh-btn i").toggleClass("fa-spin");
+                        $("#refresh-btn span").text(" Refresh");
+                    });
             }
             setInterval(getData, 10000);
+            $("#refresh-btn")
+                .click(function() {
+                    getData();
+                });
         });
     </script>
 }
