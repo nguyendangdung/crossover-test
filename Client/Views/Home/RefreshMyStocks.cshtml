@@ -1,0 +1,31 @@
+﻿@using X.PagedList.Mvc
+@model Client.Models.MyStocksViewModel
+
+<table class="table">
+    <tr>
+        <th>Code</th>
+        <th>Count</th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stocks.FirstOrDefault().Price)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Stocks)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Count</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <a href="@Url.Action("Buy", new {item.Id})" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Buy</a>
+                <a href="@Url.Action("Sell", new {item.Id})" class="btn btn-default btn-xs"><i class="fa fa-minus"></i> Sell</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.PagedListPager(Model.Stocks, p => Url.Action("MyStocks", new { page = p }))

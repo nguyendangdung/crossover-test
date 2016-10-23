@@ -1,51 +1,64 @@
 ﻿@using Client.Models
 @using X.PagedList
 @using X.PagedList.Mvc
-@model IEnumerable<Client.Models.StockListItem>
+@model Client.Models.MyStocksViewModel
 
 @{
-    ViewBag.Title = "Index";
-    var page = (Model as StaticPagedList<StockListItem>).PageNumber;
-    var size = (Model as StaticPagedList<StockListItem>).PageSize;
-    var url = Url.Action("Refresh", new {page, size});
+    ViewBag.Title = "MyStocks";
+    var page = Model.Stocks.PageNumber;
+    var size = Model.Stocks.PageSize;
+    var url = Url.Action("RefreshMyStocks", new { page, size });
 }
 
 <h2>Stocks <small>Click the button to refresh or auto refresh every 10 seconds</small></h2>
 <p>
     <button id="refresh-btn" class="btn btn-default"><i class="fa fa-refresh fa-fw"></i> <span>Refresh</span></button>
 </p>
+
+<div class="panel">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="col-md-2 control-label">Owner</label>
+            <div class="col-md-10">
+                <div class="form-control-static">@Model.UserName</div>    
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div id="talbe-wraper">
     <table class="table">
         <tr>
+            <th>Code</th>
+            <th>Count</th>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.Stocks.FirstOrDefault().Price)
             </th>
             <th></th>
         </tr>
 
-        @foreach (var item in Model)
+        @foreach (var item in Model.Stocks)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
+                <td>@item.Id</td>
+                <td>@item.Count</td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
                     <a href="@Url.Action("Buy", new {item.Id})" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Buy</a>
+                    <a href="@Url.Action("Sell", new {item.Id})" class="btn btn-default btn-xs"><i class="fa fa-minus"></i> Sell</a>
                 </td>
             </tr>
         }
 
     </table>
 
-    @Html.PagedListPager(Model as StaticPagedList<StockListItem>, p => Url.Action("Index", new {page = p}))
+    @Html.PagedListPager(Model.Stocks, p => Url.Action("MyStocks", new { page = p }))
 </div>
 
+    
 @section scripts
 {
     <script>

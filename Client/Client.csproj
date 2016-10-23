@@ -205,8 +205,12 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MyStockListItem.cs" />
+    <Compile Include="Models\MyStocksViewModel.cs" />
+    <Compile Include="Models\StockDetails.cs" />
     <Compile Include="Models\StockListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Service References\ServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -297,6 +301,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <None Include="Service References\ServiceReference\StockExchangeService.wsdl" />
     <Content Include="Views\Home\Refresh.cshtml" />
+    <Content Include="Views\Home\Buy.cshtml" />
+    <Content Include="Views\Home\MyStocks.cshtml" />
+    <Content Include="Views\Home\RefreshMyStocks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

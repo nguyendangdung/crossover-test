@@ -42,7 +42,7 @@ namespace Service
         public GetByIdsResponseMessage GetByIds(List<int> ids, int page = 1, int size = 15)
         {
             var stocks = StockRepository.GetByIds(ids).OrderBy(s => s.Id).Pager(page, size);
-            var count = StockRepository.GetAll().Count();
+            var count = StockRepository.GetByIds(ids).Count();
 
             return new GetByIdsResponseMessage()
             {

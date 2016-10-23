@@ -23,7 +23,7 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                <a href="#" class="btn btn-default btn-xs">Buy</a>
+                <a href="@Url.Action("Buy", new {item.Id})" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Buy</a>
             </td>
         </tr>
     }
