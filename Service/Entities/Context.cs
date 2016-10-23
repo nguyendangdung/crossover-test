@@ -6,7 +6,7 @@ namespace Service.Entities
 {
     public class Context : DbContext, IContext
     {
-        public DbSet<Stock> Stocks { get; set; }
+        public IDbSet<Stock> Stocks { get; set; }
 
 
         public List<Stock> GetRandomStocks()

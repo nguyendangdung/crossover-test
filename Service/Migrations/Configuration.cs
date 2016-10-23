@@ -1,3 +1,5 @@
+using Service.Entities;
+
 namespace Service.Migrations
 {
     using System;
@@ -16,7 +18,7 @@ namespace Service.Migrations
         {
             if (!context.Stocks.Any())
             {
-                context.Stocks.AddRange(context.GetRandomStocks());
+                (context.Stocks as DbSet<Stock>).AddRange(context.GetRandomStocks());
                 context.SaveChanges();
             }
         }
