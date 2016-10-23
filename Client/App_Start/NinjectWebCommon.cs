@@ -65,7 +65,7 @@ namespace Client.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<ApplicationDbContext>().ToSelf().InRequestScope();
+            kernel.Bind<IApplicationDbContext>().To<ApplicationDbContext>().InRequestScope();
             kernel.Bind<IUserRepository>().To<UserRepository>();
             kernel.Bind<IStockService>().To<StockService>();
         }        

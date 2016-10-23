@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Common;
 using Service.Entities;
@@ -13,10 +10,10 @@ namespace Service.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly Context _context;
+        private readonly IContext _context;
         private readonly IStockRepository _stockRepository;
 
-        public HomeController(Context context, IStockRepository stockRepository)
+        public HomeController(IContext context, IStockRepository stockRepository)
         {
             _context = context;
             _stockRepository = stockRepository;

@@ -7,9 +7,9 @@ namespace Service.Repositories
 {
     public class StockRepository : IStockRepository
     {
-        private readonly Context _context;
+        private readonly IContext _context;
 
-        public StockRepository(Context context)
+        public StockRepository(IContext context)
         {
             _context = context;
         }

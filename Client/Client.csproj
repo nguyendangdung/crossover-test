@@ -198,6 +198,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Entities\ApplicationDbContext.cs" />
+    <Compile Include="Entities\IApplicationDbContext.cs" />
     <Compile Include="Entities\Stock.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -225,6 +226,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IUserRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="ServiceAgents\IStockService.cs" />
     <Compile Include="ServiceAgents\StockService.cs" />
     <Compile Include="Startup.cs" />

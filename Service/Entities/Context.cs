@@ -4,7 +4,7 @@ using System.Data.Entity;
 
 namespace Service.Entities
 {
-    public class Context : DbContext
+    public class Context : DbContext, IContext
     {
         public DbSet<Stock> Stocks { get; set; }
 

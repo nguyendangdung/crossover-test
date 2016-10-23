@@ -64,7 +64,7 @@ namespace Service.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<Context>().ToSelf().InRequestScope();
+            kernel.Bind<IContext>().To<Context>().InRequestScope();
             kernel.Bind<IStockRepository>().To<StockRepository>();
         }        
     }

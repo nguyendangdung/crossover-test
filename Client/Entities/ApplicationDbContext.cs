@@ -2,7 +2,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Client.Entities
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
     {
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
