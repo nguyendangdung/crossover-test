@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using Service.Migrations;
 
 namespace Service.Entities
 {
@@ -8,6 +10,10 @@ namespace Service.Entities
     {
         public IDbSet<Stock> Stocks { get; set; }
 
+        public Context()
+        {
+            Database.SetInitializer<Context>(new MigrateDatabaseToLatestVersion<Context, Configuration>());
+        }
 
         public List<Stock> GetRandomStocks()
         {
