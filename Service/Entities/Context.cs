@@ -15,7 +15,11 @@ namespace Service.Entities
             var random = new Random();
             for (int i = 0; i < 1000; i++)
             {
-                stocks.Add(new Stock() {Price = random.Next(0, 1000)});
+                stocks.Add(new Stock()
+                {
+                    Price = random.Next(0, 1000),
+                    Id = i + 1
+                });
             }
             return stocks;
         }
