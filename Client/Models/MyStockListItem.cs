@@ -11,6 +11,8 @@ namespace Client.Models
         [Display(Name = "Code")]
         public int Id { get; set; }
         public decimal Price { get; set; }
+
+        [Display(Name = "Number Of Stocks")]
         public int Count { get; set; }
     }
 }

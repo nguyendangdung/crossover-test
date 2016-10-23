@@ -12,7 +12,7 @@ namespace Client.Models
         public int Id { get; set; }
         public decimal Price { get; set; }
 
-
+        [Display(Name = "Number Of Stocks")]
         [Range(1, 1000000)]
         public int Count { get; set; }
     }
@@ -24,7 +24,7 @@ namespace Client.Models
         public int Id { get; set; }
         public decimal Price { get; set; }
 
-
+        [Display(Name = "Number Of Stocks")]
         [Range(1, 1000000)]
         public int Count { get; set; }
     }

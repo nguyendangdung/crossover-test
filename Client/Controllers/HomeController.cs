@@ -53,7 +53,7 @@ namespace Client.Controllers
                 return HttpNotFound();
             }
 
-            return View(new BuyStock() {Id = response.Stock.Id, Price = response.Stock.Price});
+            return View(new BuyStock() {Id = response.Stock.Id, Price = response.Stock.Price, Count = 1});
         }
 
         [HttpPost]
@@ -97,7 +97,7 @@ namespace Client.Controllers
                 return HttpNotFound();
             }
 
-            return View(new SellStock() { Id = response.Stock.Id, Price = response.Stock.Price });
+            return View(new SellStock() { Id = response.Stock.Id, Price = response.Stock.Price, Count = 1});
         }
 
         [HttpPost]
