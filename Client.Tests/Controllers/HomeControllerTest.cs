@@ -6,6 +6,11 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Client;
 using Client.Controllers;
+using Client.localhost;
+using Client.Models;
+using Client.ServiceAgents;
+using Moq;
+using X.PagedList;
 
 namespace Client.Tests.Controllers
 {
@@ -16,13 +21,32 @@ namespace Client.Tests.Controllers
         public void Index()
         {
             // Arrange
-            //HomeController controller = new HomeController();
+            var stocks = new List<StockDetails>();
+            for (int i = 0; i < 20; i++)
+            {
+                stocks.Add(new StockDetails() {Id = i+1, Price = (new Random()).Next(1, 1000)});
+            }
+            var mock = new Mock<IStockService>();
+            mock.Setup(s => s.GetAll(1, 20)).Returns<int, int>((page, size) => new GetAllResponseMessage()
+            {
+                Count = 1000,
+                Stocks = stocks.ToArray(),
+                Page = 1,
+                Size = 20
+            });
 
-            //// Act
-            //ViewResult result = controller.Index() as ViewResult;
 
-            //// Assert
-            //Assert.IsNotNull(result);
+            HomeController controller = new HomeController(mock.Object, null, null);
+
+            // Act
+            ViewResult result = controller.Index(1, 20) as ViewResult;
+            var model = result.Model as StaticPagedList<StockListItem>;
+            // Assert
+            Assert.IsNotNull(model);
+            Assert.AreEqual(model.Count, 20);
+            Assert.AreEqual(model.TotalItemCount, 1000);
+            Assert.AreEqual(model.PageNumber, 1);
+            Assert.AreEqual(model.PageSize, 20);
         }
 
         [TestMethod]

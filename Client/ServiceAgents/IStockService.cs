@@ -8,5 +8,8 @@ namespace Client.ServiceAgents
         GetAllResponseMessage GetAll(int page, int size);
         GetByIdsResponseMessage GetByRemoteIds(List<int> remoteIds, int page, int size);
         GetByIdResponseMessage GetByRemoteId(int remoteId);
+
+
+        string TestMoq(string a);
     }
 }

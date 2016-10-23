@@ -30,5 +30,10 @@ namespace Client.ServiceAgents
             var response = _client.GetById(remoteId);
             return response;
         }
+
+        public string TestMoq(string a)
+        {
+            return a;
+        }
     }
 }
