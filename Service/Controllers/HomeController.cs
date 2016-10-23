@@ -13,7 +13,7 @@ namespace Service.Controllers
 {
     public class HomeController : Controller
     {
-        private Context _context;
+        private readonly Context _context;
         private readonly IStockRepository _stockRepository;
 
         public HomeController(Context context, IStockRepository stockRepository)
