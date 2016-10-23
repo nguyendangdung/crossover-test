@@ -219,15 +219,20 @@
     <Compile Include="Models\StockDetails.cs" />
     <Compile Include="Models\StockListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\IUserRepository.cs" />
-    <Compile Include="Service References\ServiceReference\Reference.cs">
+    <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="ServiceAgents\IStockService.cs" />
     <Compile Include="ServiceAgents\StockService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Web References\localhost\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -239,6 +244,10 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -251,31 +260,20 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Service References\ServiceReference\Client.ServiceReference.GetAllResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
+    <Content Include="Web References\localhost\GetAllResponseMessage.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
     </Content>
-    <Content Include="Service References\ServiceReference\Client.ServiceReference.GetAllResponseMessage.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
+    <Content Include="Web References\localhost\GetByIdResponseMessage.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
     </Content>
-    <Content Include="Service References\ServiceReference\Client.ServiceReference.GetByIdResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
+    <Content Include="Web References\localhost\GetByIdsResponseMessage.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
     </Content>
-    <Content Include="Service References\ServiceReference\Client.ServiceReference.GetByIdResponseMessage.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\ServiceReference\Client.ServiceReference.GetByIdsResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\ServiceReference\Client.ServiceReference.GetByIdsResponseMessage.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <None Include="Service References\ServiceReference\StockExchangeService.disco" />
-    <None Include="Service References\ServiceReference\configuration91.svcinfo" />
-    <None Include="Service References\ServiceReference\configuration.svcinfo" />
-    <None Include="Service References\ServiceReference\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
+    <None Include="Web References\localhost\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Web References\localhost\StockExchangeService.disco" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -308,12 +306,12 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <None Include="Service References\ServiceReference\StockExchangeService.wsdl" />
     <Content Include="Views\Home\Refresh.cshtml" />
     <Content Include="Views\Home\Buy.cshtml" />
     <Content Include="Views\Home\MyStocks.cshtml" />
     <Content Include="Views\Home\RefreshMyStocks.cshtml" />
     <Content Include="Views\Home\Sell.cshtml" />
+    <None Include="Web References\localhost\StockExchangeService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -325,12 +323,6 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\ServiceReference\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
@@ -345,6 +337,22 @@
     <EmbeddedResource Include="Migrations\201610230813246_next.resx">
       <DependentUpon>201610230813246_next.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://localhost:6857/StockExchangeService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\localhost\</RelPath>
+      <UpdateFromURL>http://localhost:6857/StockExchangeService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Client_localhost_StockExchangeService</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

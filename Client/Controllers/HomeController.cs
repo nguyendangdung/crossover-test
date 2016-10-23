@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using Client.Entities;
 using Client.Models;
 using Client.Repositories;
 using Client.ServiceAgents;
-using Client.ServiceReference;
 using Common;
 using Microsoft.AspNet.Identity;
 using X.PagedList;
@@ -31,10 +27,10 @@ namespace Client.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> Index(int page = 1, int size = 15)
+        public ActionResult Index(int page = 1, int size = 15)
         {
-            var stocks = await _stockService.GetAllAsync(page, size);
-            var listItems = stocks.Stocks.Select(s => new StockListItem() {Id = s.Id, Price = s.Price});
+            var stocks = _stockService.GetAll(page, size);
+            var listItems = stocks.Stocks.Select(s => new StockListItem() { Id = s.Id, Price = s.Price });
             var vm = new StaticPagedList<StockListItem>(listItems, page, size, stocks.Count);
             return View(vm);
         }
@@ -44,16 +40,16 @@ namespace Client.Controllers
         /// </summary>
         /// <param name="id">Stock code</param>
         /// <returns></returns>
-        
-        public async Task<ActionResult> Buy(int id)
+
+        public ActionResult Buy(int id)
         {
-            var response = await _stockService.GetByRemoteIdAsync(id);
+            var response = _stockService.GetByRemoteId(id);
             if (response.Stock == null)
             {
                 return HttpNotFound();
             }
 
-            return View(new BuyStock() {Id = response.Stock.Id, Price = response.Stock.Price, Count = 1});
+            return View(new BuyStock() { Id = response.Stock.Id, Price = response.Stock.Price, Count = 1 });
         }
 
         [HttpPost]
@@ -62,7 +58,7 @@ namespace Client.Controllers
         {
             if (ModelState.IsValid)
             {
-                var response = await _stockService.GetByRemoteIdAsync(vm.Id);
+                var response = _stockService.GetByRemoteId(vm.Id);
                 if (response.Stock == null)
                 {
                     return RedirectToAction("Buy", new {vm.Id});
@@ -89,15 +85,15 @@ namespace Client.Controllers
             return View(vm);
         }
 
-        public async Task<ActionResult> Sell(int id)
+        public ActionResult Sell(int id)
         {
-            var response = await _stockService.GetByRemoteIdAsync(id);
+            var response = _stockService.GetByRemoteId(id);
             if (response.Stock == null)
             {
                 return HttpNotFound();
             }
 
-            return View(new SellStock() { Id = response.Stock.Id, Price = response.Stock.Price, Count = 1});
+            return View(new SellStock() { Id = response.Stock.Id, Price = response.Stock.Price, Count = 1 });
         }
 
         [HttpPost]
@@ -106,7 +102,7 @@ namespace Client.Controllers
         {
             if (ModelState.IsValid)
             {
-                var response = await _stockService.GetByRemoteIdAsync(vm.Id);
+                var response = _stockService.GetByRemoteId(vm.Id);
                 if (response.Stock == null)
                 {
                     return RedirectToAction("Sell", new { vm.Id });
@@ -156,7 +152,7 @@ namespace Client.Controllers
             var userId = User.Identity.GetUserId();
             var user = await _userRepository.GetUserByIdIncludeStocksAsync(userId);
             var stockIds = user.Stocks.Select(s => s.RemoteId);
-            var response = await _stockService.GetByRemoteIdsAsync(stockIds.ToList(), page, size);
+            var response = _stockService.GetByRemoteIds(stockIds.ToList(), page, size);
 
             var listItems =
                 response.Stocks.Select(
@@ -179,7 +175,7 @@ namespace Client.Controllers
 
         public ActionResult Refresh(int page, int size)
         {
-            var stocks = AsyncHelper.RunSync(() => _stockService.GetAllAsync(page, size));
+            var stocks = _stockService.GetAll(page, size);
             var listItems = stocks.Stocks.Select(s => new StockListItem() { Id = s.Id, Price = s.Price });
             var vm = new StaticPagedList<StockListItem>(listItems, page, size, stocks.Count);
             return PartialView(vm);
@@ -191,7 +187,7 @@ namespace Client.Controllers
             var userId = User.Identity.GetUserId();
             var user = AsyncHelper.RunSync(() => _userRepository.GetUserByIdIncludeStocksAsync(userId));
             var stockIds = user.Stocks.Select(s => s.RemoteId);
-            var response = AsyncHelper.RunSync(() => _stockService.GetByRemoteIdsAsync(stockIds.ToList(), page, size));
+            var response = _stockService.GetByRemoteIds(stockIds.ToList(), page, size);
 
             var listItems =
                 response.Stocks.Select(

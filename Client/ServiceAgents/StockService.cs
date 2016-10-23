@@ -1,35 +1,34 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Client.ServiceReference;
+using Client.localhost;
 
 namespace Client.ServiceAgents
 {
     public class StockService : IStockService
     {
-        private readonly StockExchangeServiceSoapClient _client;
+        private readonly StockExchangeService _client;
 
         public StockService()
         {
-            _client = new StockExchangeServiceSoapClient();
+            _client = new StockExchangeService();
+            var authentication = new Authentication() {Password = "testpassword", User = "testuser"};
+            _client.AuthenticationValue = authentication;
         }
-        public async Task<GetAllResponseMessage> GetAllAsync(int page, int size)
+        public GetAllResponseMessage GetAll(int page, int size)
         {
-            var response = await _client.GetAllAsync(page, size);
-            return response.Body.GetAllResult;
-        }
-
-        public async Task<GetByIdsResponseMessage> GetByRemoteIdsAsync(List<int> remoteIds, int page, int size)
-        {
-            var idArray = new ArrayOfInt();
-            idArray.AddRange(remoteIds);
-            var response = await _client.GetByIdsAsync(idArray, page, size);
-            return response.Body.GetByIdsResult;
+            var response = _client.GetAll(page, size);
+            return response;
         }
 
-        public async Task<GetByIdResponseMessage> GetByRemoteIdAsync(int remoteId)
+        public GetByIdsResponseMessage GetByRemoteIds(List<int> remoteIds, int page, int size)
         {
-            var response = await _client.GetByIdAsync(remoteId);
-            return response.Body.GetByIdResult;
+            var response = _client.GetByIds(remoteIds.ToArray(), page, size);
+            return response;
+        }
+
+        public GetByIdResponseMessage GetByRemoteId(int remoteId)
+        {
+            var response = _client.GetById(remoteId);
+            return response;
         }
     }
 }
