@@ -10,7 +10,7 @@ namespace Client.ServiceAgents
     public interface IStockService
     {
         Task<GetAllResponseMessage> GetAllAsync(int page, int size);
-        Task<GetByIdsResponseMessage> GetByIdsAsync(List<int> ids, int page, int size);
-        Task<GetByIdResponseMessage> GetByIdAsync(int id);
+        Task<GetByIdsResponseMessage> GetByRemoteIdsAsync(List<int> remoteIds, int page, int size);
+        Task<GetByIdResponseMessage> GetByRemoteIdAsync(int remoteId);
     }
 }

@@ -13,6 +13,7 @@
 <h2>My Stocks <small>Click the button to refresh or auto refresh every 10 seconds</small></h2>
 <p>
     <button id="refresh-btn" class="btn btn-default"><i class="fa fa-refresh fa-fw"></i> <span>Refresh</span></button>
+    <span id="countdown"></span>
 </p>
 
 <div class="panel">
@@ -63,18 +64,30 @@
 {
     <script>
         $(function () {
+            function get10SecondsFromNow() {
+                return new Date(new Date().valueOf() + 10000);
+            }
+            var $countdown = $('#countdown');
+            $countdown.countdown(get10SecondsFromNow())
+                .on("update.countdown",
+                    function (event) {
+                        $(this).html(event.strftime('%S'));
+                    })
+                .on("finish.countdown", getData);
+
             function getData() {
                 $("#refresh-btn i").toggleClass("fa-spin");
                 $("#refresh-btn span").text(" Refreshing ...");
                 $("#talbe-wraper").load("@Html.Raw(url)",
-                    function() {
+                    function () {
                         $("#refresh-btn i").toggleClass("fa-spin");
                         $("#refresh-btn span").text(" Refresh");
+                        $countdown.countdown(get10SecondsFromNow());
                     });
             }
-            setInterval(getData, 10000);
+
             $("#refresh-btn")
-                .click(function() {
+                .click(function () {
                     getData();
                 });
         });

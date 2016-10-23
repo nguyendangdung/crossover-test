@@ -18,17 +18,17 @@ namespace Client.ServiceAgents
             return response.Body.GetAllResult;
         }
 
-        public async Task<GetByIdsResponseMessage> GetByIdsAsync(List<int> ids, int page, int size)
+        public async Task<GetByIdsResponseMessage> GetByRemoteIdsAsync(List<int> remoteIds, int page, int size)
         {
             var idArray = new ArrayOfInt();
-            idArray.AddRange(ids);
+            idArray.AddRange(remoteIds);
             var response = await _client.GetByIdsAsync(idArray, page, size);
             return response.Body.GetByIdsResult;
         }
 
-        public async Task<GetByIdResponseMessage> GetByIdAsync(int id)
+        public async Task<GetByIdResponseMessage> GetByRemoteIdAsync(int remoteId)
         {
-            var response = await _client.GetByIdAsync(id);
+            var response = await _client.GetByIdAsync(remoteId);
             return response.Body.GetByIdResult;
         }
     }

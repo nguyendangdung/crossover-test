@@ -47,7 +47,7 @@ namespace Client.Controllers
         
         public async Task<ActionResult> Buy(int id)
         {
-            var response = await _stockService.GetByIdAsync(id);
+            var response = await _stockService.GetByRemoteIdAsync(id);
             if (response.Stock == null)
             {
                 return HttpNotFound();
@@ -62,16 +62,16 @@ namespace Client.Controllers
         {
             if (ModelState.IsValid)
             {
-                var response = await _stockService.GetByIdAsync(vm.Id);
+                var response = await _stockService.GetByRemoteIdAsync(vm.Id);
                 if (response.Stock == null)
                 {
                     return RedirectToAction("Buy", new {vm.Id});
                 }
                 var userId = User.Identity.GetUserId();
                 var user = await _userRepository.GetUserByIdIncludeStocksAsync(userId);
-                if (user.Stocks.Any(s => s.Code == vm.Id))
+                if (user.Stocks.Any(s => s.RemoteId == vm.Id))
                 {
-                    var stock = user.Stocks.FirstOrDefault(s => s.Code == vm.Id);
+                    var stock = user.Stocks.FirstOrDefault(s => s.RemoteId == vm.Id);
                     if (stock != null)
                     {
                         stock.Count += vm.Count;
@@ -79,7 +79,7 @@ namespace Client.Controllers
                 }
                 else
                 {
-                    user.Stocks.Add(new Stock() {Code = vm.Id, Count = vm.Count});
+                    user.Stocks.Add(new Stock() {RemoteId = vm.Id, Count = vm.Count});
                 }
                 await _context.SaveChangesAsync();
                 return RedirectToAction("MyStocks");
@@ -91,7 +91,7 @@ namespace Client.Controllers
 
         public async Task<ActionResult> Sell(int id)
         {
-            var response = await _stockService.GetByIdAsync(id);
+            var response = await _stockService.GetByRemoteIdAsync(id);
             if (response.Stock == null)
             {
                 return HttpNotFound();
@@ -106,16 +106,16 @@ namespace Client.Controllers
         {
             if (ModelState.IsValid)
             {
-                var response = await _stockService.GetByIdAsync(vm.Id);
+                var response = await _stockService.GetByRemoteIdAsync(vm.Id);
                 if (response.Stock == null)
                 {
                     return RedirectToAction("Sell", new { vm.Id });
                 }
                 var userId = User.Identity.GetUserId();
                 var user = await _userRepository.GetUserByIdIncludeStocksAsync(userId);
-                if (user.Stocks.Any(s => s.Code == vm.Id))
+                if (user.Stocks.Any(s => s.RemoteId == vm.Id))
                 {
-                    var stock = user.Stocks.FirstOrDefault(s => s.Code == vm.Id);
+                    var stock = user.Stocks.FirstOrDefault(s => s.RemoteId == vm.Id);
                     
                     if (stock != null)
                     {
@@ -147,7 +147,7 @@ namespace Client.Controllers
 
         private int GetCountByStockCode(List<Stock> stokcs, int code)
         {
-            var stock = stokcs.FirstOrDefault(s => s.Code == code);
+            var stock = stokcs.FirstOrDefault(s => s.RemoteId == code);
             return stock?.Count ?? 0;
         }
 
@@ -155,8 +155,8 @@ namespace Client.Controllers
         {
             var userId = User.Identity.GetUserId();
             var user = await _userRepository.GetUserByIdIncludeStocksAsync(userId);
-            var stockIds = user.Stocks.Select(s => s.Code);
-            var response = await _stockService.GetByIdsAsync(stockIds.ToList(), page, size);
+            var stockIds = user.Stocks.Select(s => s.RemoteId);
+            var response = await _stockService.GetByRemoteIdsAsync(stockIds.ToList(), page, size);
 
             var listItems =
                 response.Stocks.Select(
@@ -190,8 +190,8 @@ namespace Client.Controllers
         {
             var userId = User.Identity.GetUserId();
             var user = AsyncHelper.RunSync(() => _userRepository.GetUserByIdIncludeStocksAsync(userId));
-            var stockIds = user.Stocks.Select(s => s.Code);
-            var response = AsyncHelper.RunSync(() => _stockService.GetByIdsAsync(stockIds.ToList(), page, size));
+            var stockIds = user.Stocks.Select(s => s.RemoteId);
+            var response = AsyncHelper.RunSync(() => _stockService.GetByRemoteIdsAsync(stockIds.ToList(), page, size));
 
             var listItems =
                 response.Stocks.Select(
