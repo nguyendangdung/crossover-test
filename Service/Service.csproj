@@ -175,7 +175,6 @@
     <Compile Include="Repositories\StockRepository.cs" />
     <Compile Include="StockExchangeService.asmx.cs">
       <DependentUpon>StockExchangeService.asmx</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -217,6 +216,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
