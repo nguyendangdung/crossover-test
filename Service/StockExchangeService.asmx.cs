@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Authentication;
-using System.Web;
 using System.Web.Services;
 using System.Web.Services.Protocols;
+using Autofac;
 using Common;
-using Ninject;
-using Ninject.Web;
+using Service.Entities;
 using Service.Models;
 using Service.Repositories;
 
@@ -34,7 +32,7 @@ namespace Service
 
         public StockExchangeService()
         {
-            _stockRepository = (IStockRepository)MvcApplication.DI.GetService(typeof(IStockRepository));
+            _stockRepository = new StockRepository(new Context());
         }
 
         [WebMethod]
