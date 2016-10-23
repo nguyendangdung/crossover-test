@@ -304,6 +304,7 @@
     <Content Include="Views\Home\Buy.cshtml" />
     <Content Include="Views\Home\MyStocks.cshtml" />
     <Content Include="Views\Home\RefreshMyStocks.cshtml" />
+    <Content Include="Views\Home\Sell.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

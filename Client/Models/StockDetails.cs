@@ -16,4 +16,16 @@ namespace Client.Models
         [Range(1, 1000000)]
         public int Count { get; set; }
     }
+
+
+    public class SellStock
+    {
+        [Display(Name = "Code")]
+        public int Id { get; set; }
+        public decimal Price { get; set; }
+
+
+        [Range(1, 1000000)]
+        public int Count { get; set; }
+    }
 }

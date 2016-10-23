@@ -20,8 +20,8 @@ namespace Client.Controllers
     public class HomeController : Controller
     {
         private readonly IStockService _stockService;
-        private IUserRepository _userRepository;
-        private ApplicationDbContext _context;
+        private readonly IUserRepository _userRepository;
+        private readonly ApplicationDbContext _context;
 
         public HomeController(IStockService stockService, ApplicationDbContext context, IUserRepository userRepository)
         {
@@ -89,6 +89,62 @@ namespace Client.Controllers
             return View(vm);
         }
 
+        public async Task<ActionResult> Sell(int id)
+        {
+            var response = await _stockService.GetByIdAsync(id);
+            if (response.Stock == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(new SellStock() { Id = response.Stock.Id, Price = response.Stock.Price });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Sell(SellStock vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = await _stockService.GetByIdAsync(vm.Id);
+                if (response.Stock == null)
+                {
+                    return RedirectToAction("Sell", new { vm.Id });
+                }
+                var userId = User.Identity.GetUserId();
+                var user = await _userRepository.GetUserByIdIncludeStocksAsync(userId);
+                if (user.Stocks.Any(s => s.Code == vm.Id))
+                {
+                    var stock = user.Stocks.FirstOrDefault(s => s.Code == vm.Id);
+                    
+                    if (stock != null)
+                    {
+                        if (stock.Count < vm.Count)
+                        {
+                            ModelState.AddModelError("", "You don't have enough of stocks");
+                            return View(vm);
+                        }
+                        stock.Count -= vm.Count;
+                        if (stock.Count <= 0)
+                        {
+                            user.Stocks.Remove(stock);
+                        }
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction("MyStocks");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "You dont have any this stock");
+                    return View();
+                }
+                await _context.SaveChangesAsync();
+                return RedirectToAction("MyStocks");
+            }
+
+            return View(vm);
+        }
+
         private int GetCountByStockCode(List<Stock> stokcs, int code)
         {
             var stock = stokcs.FirstOrDefault(s => s.Code == code);
@@ -123,10 +179,6 @@ namespace Client.Controllers
 
         public ActionResult Refresh(int page, int size)
         {
-            // Demo only
-            Thread.Sleep(2000);
-
-
             var stocks = AsyncHelper.RunSync(() => _stockService.GetAllAsync(page, size));
             var listItems = stocks.Stocks.Select(s => new StockListItem() { Id = s.Id, Price = s.Price });
             var vm = new StaticPagedList<StockListItem>(listItems, page, size, stocks.Count);
