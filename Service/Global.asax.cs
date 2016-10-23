@@ -17,7 +17,7 @@ namespace Service
             var container = Builder.Build();
             return container;
         }
-        //public static NinjectDI DI = new NinjectDI();
+        
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();

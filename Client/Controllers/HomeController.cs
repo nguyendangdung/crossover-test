@@ -17,9 +17,9 @@ namespace Client.Controllers
     {
         private readonly IStockService _stockService;
         private readonly IUserRepository _userRepository;
-        private readonly ApplicationDbContext _context;
+        private readonly IApplicationDbContext _context;
 
-        public HomeController(IStockService stockService, ApplicationDbContext context, IUserRepository userRepository)
+        public HomeController(IStockService stockService, IApplicationDbContext context, IUserRepository userRepository)
         {
             _stockService = stockService;
             _context = context;
