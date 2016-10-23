@@ -10,7 +10,7 @@ namespace Client.ServiceAgents
         public StockService()
         {
             _client = new StockExchangeService();
-            var authentication = new Authentication() {Password = "testpassword", User = "testuser"};
+            var authentication = new Authentication() {Password = "testpagdfgssword", User = "testuser"};
             _client.AuthenticationValue = authentication;
         }
         public GetAllResponseMessage GetAll(int page, int size)
