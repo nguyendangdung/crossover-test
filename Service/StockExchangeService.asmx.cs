@@ -39,7 +39,8 @@ namespace Service
         {
             if (!CheckAuthenticationHeader())
             {
-                return null;
+                Context.Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                Context.Response.End();
             }
             var stocks = StockRepository.GetAll().OrderBy(s => s.Id).Pager(page, size);
             var count = StockRepository.GetAll().Count();
@@ -59,7 +60,8 @@ namespace Service
         {
             if (!CheckAuthenticationHeader())
             {
-                return null;
+                Context.Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                Context.Response.End();
             }
 
             var stocks = StockRepository.GetByIds(ids).OrderBy(s => s.Id).Pager(page, size);
@@ -81,7 +83,8 @@ namespace Service
         {
             if (!CheckAuthenticationHeader())
             {
-                return null;
+                Context.Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                Context.Response.End();
             }
 
             var stock = StockRepository.GetById(id);
@@ -94,18 +97,7 @@ namespace Service
 
         bool CheckAuthenticationHeader()
         {
-            if (Authentication?.User == "testuser" && Authentication?.Password == "testpassword")
-            {
-                return true;
-            }
-
-            Context.Response.Status = "403 Forbidden";
-            //the next line is untested - thanks to strider for this line
-            Context.Response.StatusCode = 403;
-            //the next line can result in a ThreadAbortException
-            //Context.Response.End(); 
-            Context.ApplicationInstance.CompleteRequest();
-            return false;
+            return Authentication?.User == "testuser" && Authentication?.Password == "testpassword";
         }
     }
 }
