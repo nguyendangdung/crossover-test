@@ -88,7 +88,7 @@ namespace Service
             var stock = StockRepository.GetById(id);
             return new GetByIdResponseMessage()
             {
-                Stock = new StockDetails() { Id = stock.Id, Price = stock.Price}
+                Stock = stock == null ? null : new StockDetails() { Id = stock.Id, Price = stock.Price}
             };
         }
 
