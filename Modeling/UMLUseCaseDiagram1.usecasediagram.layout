@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="UMLUseCaseDiagram1">
+  <useCaseModelRootMoniker Id="88d1df65-6ac4-4eb7-80fc-a8204eab236d" />
+  <nestedChildShapes>
+    <actorShape Id="0999db4b-9a31-492b-809c-05909cb0d4ae" absoluteBounds="1.5, 1.375, 0.5, 0.5" isReference="false" heightOffset="0">
+      <actorMoniker Id="497c967f-40ef-41e0-b8fb-513538268c76" LastKnownName="User" />
+      <relativeChildShapes />
+    </actorShape>
+    <actorShape Id="bc8d7aef-c25b-4c9d-b6e4-1dc6b5d5e3a0" absoluteBounds="1.5, 3.125, 0.5, 0.5" isReference="false" heightOffset="0">
+      <actorMoniker Id="5644cf49-7c28-4680-81e3-49e93e4d0b07" LastKnownName="Authenticated User" />
+      <relativeChildShapes />
+    </actorShape>
+    <useCaseGeneralizationConnector edgePoints="[(1.75 : 3.125); (1.75 : 1.875)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110">
+      <generalizationMoniker Id="a0443ee0-66b1-4c90-9a0b-c9e0e5bde179" />
+      <relativeChildShapes />
+      <nodes>
+        <actorShapeMoniker Id="bc8d7aef-c25b-4c9d-b6e4-1dc6b5d5e3a0" />
+        <actorShapeMoniker Id="0999db4b-9a31-492b-809c-05909cb0d4ae" />
+      </nodes>
+    </useCaseGeneralizationConnector>
+  </nestedChildShapes>
+</useCaseDiagram>

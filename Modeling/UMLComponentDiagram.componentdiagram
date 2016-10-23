@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<componentModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" dslVersion="1.0.0.0" Id="74ca81d6-9c5a-45d3-86de-72aa37f8248f" name="UMLComponentDiagram" linkedPackageId="1bc01a7b-cb47-43d7-a2d4-7e2522151332" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="4e4cacbd-e579-485a-8fbd-e63d63053031">
+      <profileInstance Id="fd56f394-6e3e-445f-b7ac-594f9ae175eb" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="c4d35633-3b43-458b-bdea-84bb73bede77">
+      <profileInstance Id="628d1b22-6f77-4910-8cc4-35035d25dd17" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <componentModelHasComponents>
+      <component Id="893e7aa2-7df2-47e5-8720-6d8139db6d07" name="Client" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="855cfffe-7684-4b99-b713-60d2fb26e40c" />
+        <ownedAttributesInternal>
+          <requiredInterface Id="7904f6d9-7ea8-4ae7-9965-00a4074c70ea" name="Port1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isService="false" isBehavior="false">
+            <elementDefinition Id="ba81050e-d477-4cef-a5cd-e4213f7d1756" />
+            <suppliersInternal>
+              <dependency Id="3e7726bf-2acf-4a56-a884-f9c1f949d759">
+                <providedInterfaceMoniker Id="e8d49417-ef1e-4005-9fa8-d2b68cffc94d" LastKnownName="Port1" />
+                <elementDefinition Id="950af4c9-ff38-4ed3-8c6d-31aa86f81d25" />
+              </dependency>
+            </suppliersInternal>
+            <type_NamedElement>
+              <interfaceMoniker Id="148e2711-79ce-47ac-bc94-da89eb805d83" LastKnownName="StockExchangeService" />
+            </type_NamedElement>
+          </requiredInterface>
+        </ownedAttributesInternal>
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="eab2c5de-7274-47fc-a120-108cad90d177" name="Service" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="2dab151d-f7bc-4551-9bd9-ae40a17ca1f1" />
+        <ownedAttributesInternal>
+          <providedInterface Id="e8d49417-ef1e-4005-9fa8-d2b68cffc94d" name="Port1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isService="false" isBehavior="false">
+            <elementDefinition Id="c3eac06b-1b1e-4820-86ff-97595a704d91" />
+            <type_NamedElement>
+              <interfaceMoniker Id="4c577aaa-5c9a-4e9e-b888-0dcfdce4318d" LastKnownName="StockExchangeService" />
+            </type_NamedElement>
+          </providedInterface>
+        </ownedAttributesInternal>
+      </component>
+    </componentModelHasComponents>
+    <modelContainsNamedElements>
+      <Interface Id="4c577aaa-5c9a-4e9e-b888-0dcfdce4318d" name="StockExchangeService" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="7fc40e5f-0bc6-486c-ab1b-2518d054fea5" />
+      </Interface>
+    </modelContainsNamedElements>
+    <modelContainsNamedElements>
+      <Interface Id="148e2711-79ce-47ac-bc94-da89eb805d83" name="StockExchangeService" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="6e8bfaf1-d453-4f04-a653-6943ee0b98ec" />
+      </Interface>
+    </modelContainsNamedElements>
+  </packagedElements>
+  <package Id="1bc01a7b-cb47-43d7-a2d4-7e2522151332" name="Modeling">
+    <elementDefinition Id="b0ffe3d5-f58e-469c-9b5e-d536eba314e3" />
+  </package>
+</componentModel>
