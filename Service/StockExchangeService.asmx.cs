@@ -26,13 +26,16 @@ namespace Service
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
     // [System.Web.Script.Services.ScriptService]
-    public class StockExchangeService : WebServiceBase
+    public class StockExchangeService : WebService
     {
         public Authentication Authentication { get; set; }
 
-        [Inject]
-        public IStockRepository StockRepository { get; set; }
+        private readonly IStockRepository _stockRepository;
 
+        public StockExchangeService()
+        {
+            _stockRepository = (IStockRepository)MvcApplication.DI.GetService(typeof(IStockRepository));
+        }
 
         [WebMethod]
         [SoapHeader("Authentication")]
@@ -42,8 +45,8 @@ namespace Service
             {
                 throw new AuthenticationException("Invalid credential");
             }
-            var stocks = StockRepository.GetAll().OrderBy(s => s.Id).Pager(page, size);
-            var count = StockRepository.GetAll().Count();
+            var stocks = _stockRepository.GetAll().OrderBy(s => s.Id).Pager(page, size);
+            var count = _stockRepository.GetAll().Count();
 
             return new GetAllResponseMessage()
             {
@@ -63,8 +66,8 @@ namespace Service
                 throw new AuthenticationException("Invalid credential");
             }
 
-            var stocks = StockRepository.GetByIds(ids).OrderBy(s => s.Id).Pager(page, size);
-            var count = StockRepository.GetByIds(ids).Count();
+            var stocks = _stockRepository.GetByIds(ids).OrderBy(s => s.Id).Pager(page, size);
+            var count = _stockRepository.GetByIds(ids).Count();
 
             return new GetByIdsResponseMessage()
             {
@@ -85,7 +88,7 @@ namespace Service
                 throw new AuthenticationException("Invalid credential");
             }
 
-            var stock = StockRepository.GetById(id);
+            var stock = _stockRepository.GetById(id);
             return new GetByIdResponseMessage()
             {
                 Stock = stock == null ? null : new StockDetails() { Id = stock.Id, Price = stock.Price}

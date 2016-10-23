@@ -1,44 +1,34 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Service;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Authentication;
-using System.Text;
-using System.Threading.Tasks;
 using Moq;
 using Ninject;
-using Ninject.Web.Common;
 using Service.Entities;
 using Service.Repositories;
-using Service.Tests.App_Start;
 
 namespace Service.Tests
 {
     [TestClass()]
     public class StockExchangeServiceTests
     {
-        public StockExchangeServiceTests()
-        {
-            
-        }
 
         [TestMethod()]
         public void GetAllTest()
         {
             // arrange
-            
-            IKernel kernel = new StandardKernel();
+
+            MvcApplication.DI = new NinjectDI();
+
+
+
             var stockRepoMock = new Mock<IStockRepository>();
             stockRepoMock.Setup(s => s.GetAll()).Returns(() => (new Context()).GetRandomStocks().AsQueryable());
-            kernel.Bind<IStockRepository>().ToConstant(stockRepoMock.Object);
-            kernel.Bind<StockExchangeService>().ToSelf();
-
-            NinjectWebCommon.Kernel = kernel;
-            NinjectWebCommon.Start();
+            MvcApplication.DI.Kernel.Bind<IStockRepository>().ToConstant(stockRepoMock.Object);
+            MvcApplication.DI.Kernel.Bind<StockExchangeService>().ToSelf();
 
 
-            var service = kernel.Get<StockExchangeService>();
+            var service = MvcApplication.DI.Kernel.Get<StockExchangeService>();
             service.Authentication = new Authentication() {User = "testuser", Password = "testpassword"};
             //act
             var response = service.GetAll();
@@ -54,18 +44,14 @@ namespace Service.Tests
         public void Getall_return_403_error()
         {
             // arrange
+            MvcApplication.DI = new NinjectDI();
 
-            IKernel kernel = new StandardKernel();
             var stockRepoMock = new Mock<IStockRepository>();
             stockRepoMock.Setup(s => s.GetAll()).Returns(() => (new Context()).GetRandomStocks().AsQueryable());
-            kernel.Bind<IStockRepository>().ToConstant(stockRepoMock.Object);
-            kernel.Bind<StockExchangeService>().ToSelf();
+            MvcApplication.DI.Kernel.Bind<IStockRepository>().ToConstant(stockRepoMock.Object);
+            MvcApplication.DI.Kernel.Bind<StockExchangeService>().ToSelf();
 
-            NinjectWebCommon.Kernel = kernel;
-            NinjectWebCommon.Start();
-
-
-            var service = kernel.Get<StockExchangeService>();
+            var service = MvcApplication.DI.Kernel.Get<StockExchangeService>();
             service.Authentication = new Authentication() { User = "badguy", Password = "hehe" };
             //act
             var response = service.GetAll();
@@ -77,7 +63,8 @@ namespace Service.Tests
         public void GetByIdsTest()
         {
             // arrange
-            IKernel kernel = new StandardKernel();
+            MvcApplication.DI = new NinjectDI();
+
             var stockRepoMock = new Mock<IStockRepository>();
             stockRepoMock.Setup(s => s.GetByIds(It.IsAny<List<int>>())).Returns<List<int>>(s =>
             {
@@ -85,14 +72,11 @@ namespace Service.Tests
             });
 
 
-            kernel.Bind<IStockRepository>().ToConstant(stockRepoMock.Object);
-            kernel.Bind<StockExchangeService>().ToSelf();
-
-            NinjectWebCommon.Kernel = kernel;
-            NinjectWebCommon.Start();
+            MvcApplication.DI.Kernel.Bind<IStockRepository>().ToConstant(stockRepoMock.Object);
+            MvcApplication.DI.Kernel.Bind<StockExchangeService>().ToSelf();
 
 
-            var service = kernel.Get<StockExchangeService>();
+            var service = MvcApplication.DI.Kernel.Get<StockExchangeService>();
             service.Authentication = new Authentication() { User = "testuser", Password = "testpassword" };
 
             //act
@@ -106,7 +90,8 @@ namespace Service.Tests
         public void GetByIdTest()
         {
             // arrange
-            IKernel kernel = new StandardKernel();
+            MvcApplication.DI = new NinjectDI();
+
             var stockRepoMock = new Mock<IStockRepository>();
             stockRepoMock.Setup(s => s.GetById(It.IsAny<int>()))
                 .Returns<int>(s =>
@@ -122,14 +107,12 @@ namespace Service.Tests
                 });
 
 
-            kernel.Bind<IStockRepository>().ToConstant(stockRepoMock.Object);
-            kernel.Bind<StockExchangeService>().ToSelf();
-
-            NinjectWebCommon.Kernel = kernel;
-            NinjectWebCommon.Start();
+            MvcApplication.DI.Kernel.Bind<IStockRepository>().ToConstant(stockRepoMock.Object);
+            MvcApplication.DI.Kernel.Bind<StockExchangeService>().ToSelf();
 
 
-            var service = kernel.Get<StockExchangeService>();
+
+            var service = MvcApplication.DI.Kernel.Get<StockExchangeService>();
             service.Authentication = new Authentication() { User = "testuser", Password = "testpassword" };
             //act
             var response = service.GetById(10);
