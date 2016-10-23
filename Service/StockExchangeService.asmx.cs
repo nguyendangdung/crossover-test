@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Authentication;
 using System.Web;
 using System.Web.Services;
 using System.Web.Services.Protocols;
@@ -39,8 +40,7 @@ namespace Service
         {
             if (!CheckAuthenticationHeader())
             {
-                Context.Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-                Context.Response.End();
+                throw new AuthenticationException("Invalid credential");
             }
             var stocks = StockRepository.GetAll().OrderBy(s => s.Id).Pager(page, size);
             var count = StockRepository.GetAll().Count();
@@ -60,8 +60,7 @@ namespace Service
         {
             if (!CheckAuthenticationHeader())
             {
-                Context.Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-                Context.Response.End();
+                throw new AuthenticationException("Invalid credential");
             }
 
             var stocks = StockRepository.GetByIds(ids).OrderBy(s => s.Id).Pager(page, size);
@@ -83,8 +82,7 @@ namespace Service
         {
             if (!CheckAuthenticationHeader())
             {
-                Context.Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-                Context.Response.End();
+                throw new AuthenticationException("Invalid credential");
             }
 
             var stock = StockRepository.GetById(id);

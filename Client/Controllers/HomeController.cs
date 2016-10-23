@@ -173,6 +173,7 @@ namespace Client.Controllers
             return View(vm);
         }
 
+        [AllowAnonymous]
         public ActionResult Refresh(int page, int size)
         {
             var stocks = _stockService.GetAll(page, size);
