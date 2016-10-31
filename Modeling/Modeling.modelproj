@@ -29,6 +29,20 @@
       <SubType>Content</SubType>
       <DependentUpon>Client.sequencediagram</DependentUpon>
     </Content>
+    <Content Include="MyStocks.classdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="MyStocks.classdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>MyStocks.classdiagram</DependentUpon>
+    </Content>
+    <Content Include="MyStocks.sequencediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="MyStocks.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>MyStocks.sequencediagram</DependentUpon>
+    </Content>
     <Content Include="Service.Dashboard.sequencediagram">
       <SubType>Content</SubType>
     </Content>
