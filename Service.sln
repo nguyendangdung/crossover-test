@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "Modeling", "Modeling\Modeling.modelproj", "{15A58491-00D1-4179-96BF-178CDD1394B8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8BF58CDF-9761-4ADC-9926-76F45BE0C92D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,5 +53,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B35D6CC4-9509-4644-84BE-5F43CFBF61EE} = {8BF58CDF-9761-4ADC-9926-76F45BE0C92D}
+		{5679DD0E-51C6-4637-83B7-AD8BD18C852A} = {8BF58CDF-9761-4ADC-9926-76F45BE0C92D}
+		{15A58491-00D1-4179-96BF-178CDD1394B8} = {8BF58CDF-9761-4ADC-9926-76F45BE0C92D}
 	EndGlobalSection
 EndGlobal
