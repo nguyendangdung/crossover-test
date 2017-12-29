@@ -43,7 +43,7 @@ namespace Service
             {
                 throw new AuthenticationException("Invalid credential");
             }
-            var stocks = _stockRepository.GetAll().OrderBy(s => s.Id).Pager(page, size);
+            var stocks = _stockRepository.GetAll().OrderBy(s => s.Id).Pager(page, size).ToList();
             var count = _stockRepository.GetAll().Count();
 
             return new GetAllResponseMessage()
@@ -51,7 +51,24 @@ namespace Service
                 Count = count,
                 Page = page,
                 Size = size,
-                Stocks = stocks.Select(s => new StockDetails() {Id = s.Id, Price = s.Price}).ToList()
+                Stocks = stocks.Select(s =>
+                {
+                    if (s.Closed != true)
+                    {
+                        return new StockDetails()
+                        {
+                            Id = s.Id,
+                            Price = s.Price,
+                        };
+                    }
+                    else
+                    {
+                        return new StockDetails()
+                        {
+                            Id = s.Id,
+                        };
+                    }
+                }).ToList()
             };
         }
 
@@ -64,7 +81,7 @@ namespace Service
                 throw new AuthenticationException("Invalid credential");
             }
 
-            var stocks = _stockRepository.GetByIds(ids).OrderBy(s => s.Id).Pager(page, size);
+            var stocks = _stockRepository.GetByIds(ids).OrderBy(s => s.Id).Pager(page, size).ToList();
             var count = _stockRepository.GetByIds(ids).Count();
 
             return new GetByIdsResponseMessage()
@@ -72,7 +89,14 @@ namespace Service
                 Count = count,
                 Page = page,
                 Size = size,
-                Stocks = stocks.Select(s => new StockDetails() { Id = s.Id, Price = s.Price }).ToList()
+                Stocks = stocks.Select(s =>
+                {
+                    if (s.Closed != true)
+                    {
+                        return new StockDetails() {Id = s.Id, Price = s.Price};
+                    }
+                    return new StockDetails() {Id = s.Id};
+                }).ToList()
             };
         }
 

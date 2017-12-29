@@ -26,7 +26,8 @@ namespace Service.Controllers
             var vm = stocks.Select(s => new StockListitem()
             {
                 Id = s.Id,
-                Price = s.Price
+                Price = s.Price,
+                Closed = s.Closed.GetValueOrDefault()
             });
             return View(new StaticPagedList<StockListitem>(vm, page, size, count));
         }
@@ -39,7 +40,7 @@ namespace Service.Controllers
                 return HttpNotFound();
             }
 
-            return View(new StockDetails() {Id = stock.Id, Price = stock.Price});
+            return View(new StockDetails() {Id = stock.Id, Price = stock.Price, Closed = stock.Closed.GetValueOrDefault()});
         }
 
         [HttpPost]
@@ -55,6 +56,7 @@ namespace Service.Controllers
                 }
 
                 stock.Price = vm.Price;
+                stock.Closed = vm.Closed;
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }

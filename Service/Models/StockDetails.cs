@@ -9,5 +9,7 @@ namespace Service.Models
 
         [Range(0, 2000)]
         public decimal Price { get; set; }
+
+        public bool Closed { get; set; }
     }
 }
